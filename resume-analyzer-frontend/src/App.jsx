@@ -2,6 +2,7 @@ import { useState } from "react"
 import { uploadResume, submitJobDescription, runAnalysis } from "./api"
 import { UploadView } from "./components/upload-view"
 import { ResultsView } from "./components/results-view"
+import { LoginView } from "./components/login-view"
 
 function mapAnalysis(data) {
   const feedbackText = data.ai_feedback || ""
@@ -18,6 +19,7 @@ function mapAnalysis(data) {
 }
 
 function App() {
+  const [token, setToken] = useState(() => localStorage.getItem("token"))
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const [analysis, setAnalysis] = useState(null)
@@ -48,8 +50,27 @@ function App() {
     setError(null)
   }
 
+  function handleLogout() {
+    localStorage.removeItem("token")
+    setToken(null)
+    setAnalysis(null)
+  }
+
+  if (!token) {
+    return (
+      <main className="min-h-screen px-4 py-10 sm:px-6 sm:py-16">
+        <LoginView onAuthenticated={() => setToken(localStorage.getItem("token"))} />
+      </main>
+    )
+  }
+
   return (
     <main className="min-h-screen px-4 py-10 sm:px-6 sm:py-16">
+      <div className="mx-auto mb-4 flex max-w-3xl justify-end">
+        <button onClick={handleLogout} className="text-sm text-muted-foreground underline">
+          Log out
+        </button>
+      </div>
       {analysis ? (
         <ResultsView analysis={analysis} onReset={handleReset} />
       ) : (

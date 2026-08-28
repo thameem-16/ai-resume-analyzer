@@ -68,7 +68,7 @@ export function ResultsView({ analysis, onReset }) {
           <span className="flex h-8 w-8 items-center justify-center rounded-md bg-primary/10 text-primary">
             <MessageSquareText className="h-4 w-4" aria-hidden="true" />
           </span>
-          <h2 className="font-display text-lg font-semibold text-foreground">AI feedback</h2>
+          <h2 className="font-display text-lg font-semibold text-foreground">What to Do!</h2>
         </div>
         <div className="space-y-4">
           {feedback.map((paragraph, i) => (
