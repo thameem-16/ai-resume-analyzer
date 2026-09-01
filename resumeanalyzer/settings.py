@@ -59,6 +59,7 @@ MIDDLEWARE = [
 
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:5173',
+    'https://ai-resume-analyzer-vert-ten.vercel.app',
 ]
 
 REST_FRAMEWORK = {
